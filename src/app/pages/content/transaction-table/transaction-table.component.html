@@ -1,0 +1,52 @@
+<div class="table"
+     appInfiniteScroll
+     (byLoad)="onLoadNextPage()">
+    <div class="table__row _head">
+        <div class="table__col _number">
+            №<br> П/П
+        </div>
+        <div class="table__col _time">
+            Период
+        </div>
+        <div class="table__col _name">
+            Регистратор (наименование начисления)
+        </div>
+        <div class="table__col _counter">
+            Начислено, ₽
+        </div>
+        <div class="table__col _pay">
+            Оплачено, ₽
+        </div>
+    </div>
+    <div *ngFor="let transaction of transactions; let i = index"
+         class="table__row">
+        <div class="table__col _number">
+            {{i + 1}}
+        </div>
+        <div class="table__col _time">
+            {{transaction.datetime}}
+        </div>
+        <div class="table__col _name">
+            {{transaction.name}}
+        </div>
+
+        <ng-container *ngIf="transaction.type === transactionType.Bill; else tplPay">
+            <div class="table__col _counter">
+                {{transaction.amount}}
+            </div>
+            <div class="table__col _pay">
+                --
+            </div>
+        </ng-container>
+
+        <ng-template #tplPay>
+            <div class="table__col _counter">
+                --
+            </div>
+            <div class="table__col _pay">
+                {{transaction.amount}}
+            </div>
+        </ng-template>
+
+    </div>
+</div>

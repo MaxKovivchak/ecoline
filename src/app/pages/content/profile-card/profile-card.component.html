@@ -1,0 +1,119 @@
+<div *ngIf="profile"
+     class="profileCard">
+    <div class="profileCard__exit">
+        <a class="profileCard__exitIcon"
+           (click)="onLogout()"></a>
+    </div>
+    <p class="profileCard__name">
+        {{profile.firstName}}
+        {{profile.middleName}}
+        {{profile.lastName}}
+    </p>
+    <div *ngIf="isViewMode"
+         class="profileCard__fields">
+        <div class="profileCard__field">
+            <div class="field">
+                <p class="field__support">
+                    e-mail
+                </p>
+                <p class="field__content">
+                    {{profile.email}}
+                </p>
+            </div>
+        </div>
+        <div class="profileCard__field">
+            <div class="field">
+                <p class="field__support">
+                    телефон
+                </p>
+                <p class="field__content">
+                    {{profile.phone}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <form *ngIf="!isViewMode && form"
+          [formGroup]="form"
+          (ngSubmit)="onSubmit()"
+          class="profileCard__fields">
+        <div class="profileCard__field">
+            <div class="inputField">
+                <p class="inputField__support">
+                    E-mail
+                </p>
+                <div class="inputField__input">
+                    <input placeholder="verhovtsev.aleksey@yandex.ru"
+                           type="text"
+                           class="inputField__inputItem"
+                           [class.inputField__inputItem--error]="FC.email.errors"
+                           formControlName="email">
+                </div>
+            </div>
+        </div>
+        <div class="profileCard__field profileCard__field--flex">
+            <div class="inputField inputField__col-2">
+                <p class="inputField__support">
+                    телефон
+                </p>
+                <div class="inputField__input">
+                    <input placeholder="+7 ___-___-__-__"
+                           type="text"
+                           class="inputField__inputItem"
+                           prefix="+7 "
+                           mask="(000) 000 00 00"
+                           [class.inputField__inputItem--error]="FC.phone.errors"
+                           formControlName="phone">
+                </div>
+            </div>
+            <div class="inputField inputField__col-2">
+                <p class="inputField__support">
+                    пароль
+                </p>
+                <div class="inputField__input">
+                    <input placeholder="******"
+                           type="password"
+                           autocomplete="off"
+                           class="inputField__inputItem"
+                           [class.inputField__inputItem--error]="FC.password.errors"
+                           formControlName="password">
+                </div>
+                <ng-container *ngIf="FC.password.errors as e">
+                    <div *ngIf="e.required"
+                         class="enter__error enter__error--no-wrap">
+                        <p>Обязательное поле</p>
+                    </div>
+                    <div *ngIf="e.minlength"
+                         class="enter__error enter__error--no-wrap">
+                        <p>Минимальная длина - 8 символов</p>
+                    </div>
+                    <div *ngIf="e.incorrect"
+                         class="enter__error enter__error--no-wrap">
+                        Пароль должен содержать заглавную и строчную буквы
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="profileCard__field _buttons">
+            <div class="profileCard__fieldButton _save">
+                <button class="button _green"
+                        type="submit"
+                        [disabled]="form.invalid">
+                    Сохранить изменения
+                </button>
+            </div>
+            <div class="profileCard__fieldButton _cancel">
+                <button class="button _white"
+                        (click)="changeViewMode()">
+                    Отмена
+                </button>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="isViewMode"
+         class="profileCard__button _change"
+         (click)="changeViewMode()">
+        <div class="button">
+            изменить
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+.table {
+    width: 100%;
+    height: 100%;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+    &__row {
+        width: 100%;
+        @extend .row;
+        position: relative;
+        &._head {
+            align-items: flex-end;
+        }
+        &:not(._head) {
+            padding: .5rem 0;
+            align-items: center;
+            background: #fff;
+            box-shadow: 0 0 .5rem rgba(0, 0, 0, .1);
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: .7rem;
+                height: 100%;
+                background: #8E9AA9;
+            }
+        }
+    }
+    &__row+&__row {
+        margin-top: 1rem;
+    }
+    &__col {
+        padding: 1.5rem 1rem;
+        font-size: 1.4rem;
+        line-height: 1.3;
+        font-family: 'Medium';
+        color: $colorGrey;
+        text-transform: uppercase;
+        @include media(0, 500px) {
+            font-size: 1.4rem;
+            padding: 1rem .5rem;
+        }
+        &._number {
+            width: 3%;
+            padding-left: 0;
+            @include media(0, 500px) {
+                width: 8%;
+            }
+        }
+        &._time {
+            width: 12%;
+            @include media(0, 500px) {
+                width: 22%;
+            }
+        }
+        &._name {
+            width: 26%;
+            @include media(0, 500px) {
+                width: 30%;
+            }
+        }
+        &._counter {
+            width: 10.5%;
+            @include media(0, 500px) {
+                width: 20%;
+            }
+        }
+        &._pay {
+            width: 48.5%;
+            padding-right: 0;
+            @include media(0, 500px) {
+                width: 20%;
+            }
+        }
+    }
+    &__row:not(._head) &__col {
+        font-family: 'Bold';
+        color: #A2A5A8;
+        font-size: 1.7rem;
+        @include media(0, 500px) {
+            font-size: 1.6rem;
+        }
+        &._number {
+            padding-left: 3rem;
+            color: $colorDark;
+            font-family: 'Regular';
+            @include media(0, 500px) {
+                padding-left: 2rem;
+            }
+        }
+    }
+}

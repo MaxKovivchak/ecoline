@@ -1,0 +1,39 @@
+<div class="body__topBar">
+    <app-top-bar></app-top-bar>
+</div>
+<div class="body__content">
+    <div class="content">
+        <div class="content__notify"
+             [class._success]="type === paymentResultEnum.Success"
+             [class._error]="type === paymentResultEnum.Error">
+            <p class="content__notifyTitle">
+                {{type === paymentResultEnum.Success ? 'Оплата прошла успешно' : 'Ошибка оплаты'}}
+            </p>
+            <ul *ngIf="payAmount"
+                class="content__notifyList">
+                <li class="content__notifyListItem">
+                    <span class="content__notifyListContent _description">
+                        Сумма платежа
+                    </span>
+                    <span class="content__notifyListContent _value">
+                       {{payAmount}}
+                    </span>
+                </li>
+            </ul>
+            <p *ngIf="type === paymentResultEnum.Error"
+               class="content__notifyHelp">
+                Если у вас самостоятельно не получилось решить проблему, обратитесь в <a
+                href="https://ecoline-voskresensk.ru/%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%8B/"
+                class="content__notifyHelpLink">нашу службу поддержки</a>, мы постараемся помочь.
+            </p>
+            <div class="content__notifyButtons">
+                <div class="content__notifyButton">
+                    <div class="button _grey"
+                         [routerLink]="['../../']">
+                        Перейти на главную
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

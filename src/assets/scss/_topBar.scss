@@ -1,0 +1,69 @@
+.topBar {
+    width: 100%;
+    height: 100%;
+    @extend .section;
+    background: #fff;
+    border-bottom: 1px solid #e6e6e6;
+    &__inner {
+        height: 100%;
+        width: 100%;
+        padding: 2rem;
+        @extend .row;
+        justify-content: space-between;
+        align-items: center;
+        @include media(0, 500px) {
+            padding: 0 2rem;
+            justify-content: space-between;
+        }
+    }
+    &__logo {
+        @extend .row;
+        align-items: center;
+        user-select: none;
+        &._eko {
+            width: 15rem;
+            height: 5rem;
+            @include bg('../img/logo-eko-dark-icon.png', contain, center);
+            @include media(0, 500px) {
+                width: 13rem;
+            }
+        }
+        &Icon {
+            width: 5rem;
+            height: 5rem;
+            object-fit: contain;
+            margin-right: 1.5rem;
+            @include media(0, 500px) {
+                width: 4.5rem;
+                height: 4.5rem;
+            }
+        }
+        &Content {
+            position: relative;
+            border-left: 1px solid $colorMain;
+            padding-left: 1.5rem;
+        }
+        &Name {
+            font-size: 2.25rem;
+            text-transform: uppercase;
+            font-family: 'Regular';
+            color: $colorDark;
+            margin-bottom: 1rem;
+            @include media(0, 500px) {
+                font-size: 1.9rem;
+            }
+        }
+        &Description {
+            font-size: 1.85rem;
+            text-transform: uppercase;
+            font-family: 'Light';
+            color: rgba($colorDark, .7);
+            @include media(0, 500px) {
+                font-size: 1.5rem;
+            }
+        }
+    }
+    &__logo+&__logo {
+        margin-left: 5rem;
+    }
+}

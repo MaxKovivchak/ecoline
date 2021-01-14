@@ -1,0 +1,173 @@
+<div class="body__topBar">
+    <app-top-bar></app-top-bar>
+</div>
+<div class="body__content">
+    <div class="content">
+        <div class="content__inner">
+            <div class="content__block">
+                <div class="content__cards">
+                    <div class="content__card">
+                        <app-profile-card [profile]="profile$ | async"
+                                          (logout)="onLogout()"
+                                          (changeProfile)="onChangeProfile($event)"></app-profile-card>
+                    </div>
+                    <div *ngIf="(balance$ | async) && (profile$ | async)"
+                         class="content__card">
+                        <div class="profileCard">
+                            <p class="profileCard__support">
+                                Оплата услуг
+                            </p>
+                            <div class="profileCard__items">
+                                <div class="profileCard__item _price"
+                                     [ngClass]="{'_price--success': (balance$ | async).amount > 0, '_price--error': (balance$ | async).amount < 0}">
+                                    <p class="profileCard__priceCount">
+                                        {{(balance$ | async).amount}} ₽
+                                    </p>
+                                    <p *ngIf="(balance$ | async).amount !== 0"
+                                       class="profileCard__priceInfo">
+                                        {{(balance$ | async).amount > 0 ? 'Аванс' : 'Задолженность'}} на {{(balance$ | async).datetime}}
+                                    </p>
+                                </div>
+                                <div class="profileCard__item _field">
+                                    <div class="inputField">
+                                        <p class="inputField__support">
+                                            Сумма, ₽
+                                        </p>
+                                        <div class="inputField__input">
+                                            <input type="text"
+                                                   class="inputField__inputItem"
+                                                   [(ngModel)]="payAmount">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="profileCard__item _field">
+                                    <div class="inputField">
+                                        <p class="inputField__support">
+                                            назначение платежа
+                                        </p>
+                                        <div class="inputField__input">
+                                            <input placeholder="укажите лицевой счет"
+                                                   type="text"
+                                                   class="inputField__inputItem"
+                                                   readonly
+                                                   [value]="(profile$ | async).login">
+                                        </div>
+                                    </div>
+                                </div>
+                                <span *ngIf="payResultError$ | async"
+                                      class="pay-error">
+                                    {{payResultError$ | async}}
+                                </span>
+                            </div>
+                            <div class="profileCard__button _send"
+                                 [class._send--disabled]="!isAllowPay">
+                                <a class="button _grey"
+                                   (click)="agreement()">
+                                    Скачать договор
+                                </a>
+                                <a class="button" style="margin-left: 20px;"
+                                   (click)="pay()">
+                                    Оплатить Услуги
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="dateRange$ | async"
+                     class="content__cards">
+                    <div class="content__card">
+                        <div class="documentBox">
+                            <img src="../../../assets/img/doc-icon-1.svg"
+                                 alt=""
+                                 class="documentBox__icon">
+                            <div class="documentBox__fields">
+                                <p class="documentBox__fieldsTitle">
+                                    Период
+                                </p>
+                                <div class="documentBox__fieldsItems">
+                                    <div class="documentBox__fieldsItem">
+                                        <app-select-field [options]="dateRangeReportEPDDefault"
+                                                          (changeSelection)="onChangeReportEPDSelection($event)"></app-select-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="documentBox__button">
+                                <div class="button _grey"
+                                     (click)="getEPDReport()">
+                                    Сформировать ЕПД
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content__card">
+                        <div class="documentBox">
+                            <img src="../../../assets/img/doc-icon-2.svg"
+                                 alt=""
+                                 class="documentBox__icon">
+                            <div class="documentBox__fields">
+                                <p class="documentBox__fieldsTitle">
+                                    Период
+                                </p>
+                                <div class="documentBox__fieldsItems">
+                                    <div class="documentBox__fieldsItem">
+                                        <app-select-field [options]="dateRange$ | async"
+                                                          [notAllowedItemIds]="notAllowedReconciliationStartIds"
+                                                          (changeSelection)="onChangeReconciliationStartSelection($event)"></app-select-field>
+                                    </div>
+                                    <div class="documentBox__fieldsItem">
+                                        <app-select-field [options]="dateRangeReconciliationEndDefault"
+                                                          [notAllowedItemIds]="notAllowedReconciliationEndIds"
+                                                          (changeSelection)="onChangeReconciliationEndSelection($event)"></app-select-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="documentBox__button">
+                                <div class="button _grey"
+                                     (click)="getReportReconciliation()">
+                                    Сформировать АКТ СВЕРКИ
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content__block">
+                <ng-container *ngIf="(transactions$ | async) && (transactionsQuantity$ | async); else emptyTpl">
+                    <div class="content__blockHead">
+                        <div class="content__name">
+                            <div class="nameBox">
+                                <p *ngIf="transactionsType$ | async; else withoutFilterTpl"
+                                   class="nameBox__title">
+                                    Таблица Операций
+                                </p>
+                                <ng-template #withoutFilterTpl>
+                                    <p class="nameBox__title _number"
+                                       [attr.data-number]="transactionsQuantity$ | async">
+                                        Таблица Операций
+                                    </p>
+                                </ng-template>
+                            </div>
+                        </div>
+                        <div class="content__action">
+                            <div class="content__actionLay">
+                                <div class="content__actionItem">
+                                    <app-select-field [options]="tableSelect"
+                                                      (changeSelection)="onChangeTableSelection($event)"></app-select-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content__table">
+                        <app-transaction-table [transactions]="transactions$ | async"
+                                               (loadNextPage)="onLoadNextPage()"></app-transaction-table>
+                    </div>
+                </ng-container>
+                <ng-template #emptyTpl>
+                    <p class="nameBox__title">
+                        Транзакции не найдены
+                    </p>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

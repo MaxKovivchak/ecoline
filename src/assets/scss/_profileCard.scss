@@ -1,0 +1,253 @@
+.profileCard {
+    width: 100%;
+    height: 100%;
+    $paddingTop: 2rem;
+    $paddingLeft: 2.5rem;
+    padding: $paddingTop $paddingLeft;
+    border-radius: .5rem;
+    background: #fff;
+    box-shadow: 0 0 .5rem rgba(0, 0, 0, .1);
+    position: relative;
+    @extend .col;
+    @include media(0, 500px) {
+        padding: 2.5rem;
+    }
+    &__exit {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        width: 7rem;
+        height: 7rem;
+        background: $colorGreyBg;
+        z-index: 2;
+        border-radius: .5rem;
+        box-shadow: inset 0 0 .5rem rgba(0, 0, 0, .1);
+        @extend .col;
+        justify-content: center;
+        padding-left: .75rem;
+        cursor: pointer;
+        &Icon {
+            width: 5.5rem;
+            height: 5.5rem;
+            background: #6A728C;
+            border-radius: .5rem;
+            position: relative;
+            @extend .col;
+            justify-content: center;
+            align-items: center;
+            &::before {
+                content: "";
+                width: 2.5rem;
+                height: 2.5rem;
+                @include bg('../img/exit-icon.svg', contain, center);
+                display: block;
+                margin-left: 0.2rem;
+                @include media(0, 500px) {
+                    width: 3rem;
+                    height: 3rem;
+                }
+            }
+        }
+    }
+    &__button {
+        &._change {
+            position: absolute;
+            bottom: $paddingTop;
+            right: $paddingLeft;
+            @include media(0, 500px) {
+                position: relative;
+                bottom: 0;
+                right: 0;
+                margin-top: 2rem;
+            }
+        }
+        &._send {
+            width: 80%;
+            margin-left: auto;
+            display: flex;
+            .button {
+                text-align: center;
+            }
+            @include media(0, 500px) {
+                width: auto;
+                margin-top: 2rem;
+                margin-left: 0;
+            }
+
+            &--disabled {
+                cursor: not-allowed;
+                .button {
+                    opacity: 0.4;
+                    pointer-events: none;
+                }
+            }
+        }
+    }
+    &__name {
+        font-size: 2.6rem;
+        font-family: 'Light';
+        color: $colorDark2;
+        margin-bottom: 4.5rem;
+        @include media(0, 500px) {
+            width: 85%;
+        }
+    }
+    &__fields {
+        width: 50rem;
+        @include media(0, 500px) {
+            width: 100%;
+        }
+    }
+    &__field {
+        width: 100%;
+        &._buttons {
+            @extend .row;
+            justify-content: space-between;
+            @include media(0, 500px) {
+                flex-direction: column;
+                justify-content: flex-start;
+            }
+        }
+        &Button {
+            &._save {
+                width: 57%;
+                @include media(0, 500px) {
+                    width: 100%;
+                }
+            }
+            &._cancel {
+                width: 38%;
+                @include media(0, 500px) {
+                    width: 100%;
+                }
+            }
+        }
+        &Button+&Button {
+            @include media(0, 500px) {
+                margin-top: 2rem;
+            }
+        }
+        &--flex{
+            display: flex;
+        }
+    }
+    &__field+&__field {
+        margin-top: 2rem;
+    }
+    &__support {
+        width: 100%;
+        font-size: 1.5rem;
+        font-family: 'Medium';
+        color: $colorDark2;
+        margin-bottom: 4rem;
+        @include media(0, 500px) {
+            font-size: 2.1rem;
+        }
+    }
+    &__items {
+        width: 100%;
+        position: relative;
+        @extend .row;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        @include media(0, 500px) {
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .pay-error {
+            font-family: "Regular";
+            position: absolute;
+            font-size: 13px;
+            top: -50px;
+            right: 0;
+            z-index: 10;
+            color: $colorRed;
+        }
+    }
+    &__item {
+        width: 28%;
+        @include media(0, 500px) {
+            width: 100%;
+        }
+        &._field {
+            padding-top: 1rem;
+            @include media(0, 500px) {
+                padding-top: 2rem;
+            }
+        }
+        &._price {
+            width: 31rem;
+            padding-left: 7rem;
+            position: relative;
+            @include media(0, 500px) {
+                width: 100%;
+            }
+            &::after {
+                content: "";
+                position: absolute;
+                top: -1.5rem;
+                left: -$paddingLeft;
+                width: 9rem;
+                height: 0.5rem;
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                transform: translate(0, -50%);
+                left: 0;
+                width: 5rem;
+                height: 5rem;
+            }
+            &--error {
+                &::after {
+                    background: $colorRed;
+                }
+                &::before {
+                    @include bg('../img/card-icon.svg', 4.9rem 4.9rem, center);
+                }
+            }
+            &--success {
+                &::after {
+                    background: $colorGreen;
+                }
+                &::before {
+                    @include bg('../img/card-icon-success.svg', 4.9rem 4.9rem, center);
+                }
+            }
+        }
+    }
+    &__price {
+        &Count {
+            font-size: 5rem;
+            font-family: 'Light';
+            margin-left: -0.4rem;
+            @include media(0, 500px) {
+                font-size: 4.3rem;
+            }
+        }
+        &Info {
+            font-size: 1.2rem;
+            font-family: 'Medium';
+            color: $colorGrey;
+            @include media(0, 500px) {
+                font-size: 1.9rem;
+                font-family: 'Regular';
+            }
+        }
+    }
+    &__item {
+        &._price {
+            &--success {
+                .profileCard__priceCount {
+                    color: $colorGreen;
+                }
+            }
+            &--error {
+                .profileCard__priceCount {
+                    color: $colorRed;
+                }
+            }
+        }
+    }
+}

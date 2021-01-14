@@ -1,0 +1,59 @@
+<div class="body__enter">
+    <div class="enter">
+
+        <div class="enter__top">
+            <div>
+                <a href="#" class="enter__topLogo _eko"></a>
+            </div>
+            <div class="enter__top--right">
+                <div class="enter__login">
+                    Вход в систему
+                </div>
+
+                <a href="#" class="enter__topLogo _big"></a>
+            </div>
+        </div>
+        <form class="enter__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="enter__head">
+                <div class="enter__headIcon"></div>
+                <div class="enter__headContent">
+                    <p class="enter__headSupport">
+                        Вход в систему
+                    </p>
+                    <p class="enter__headTitle">
+                        Личный кабинет
+                    </p>
+                </div>
+            </div>
+            <div class="enter__fields">
+                <div class="enter__field _user">
+                    <p class="enter__fieldSupport">
+                        ЛОГИН
+                    </p>
+                    <div class="enter__fieldInput">
+                        <input type="text" #login class="enter__fieldItem" [class.enter__fieldItem--error]="FC.login.errors && submitted" formControlName="login">
+                    </div>
+                </div>
+                <div class="enter__field _pass">
+                    <p class="enter__fieldSupport">
+                        Пароль
+                    </p>
+                    <div class="enter__fieldInput">
+                        <input type="password" class="enter__fieldItem" [class.enter__fieldItem--error]="FC.password.errors && submitted" formControlName="password">
+                    </div>
+                </div>
+                <div *ngIf="error$ | async" class="enter__error">
+                    {{(error$ | async).error?.message}}
+                </div>
+            </div>
+            <div class="enter__buttons">
+                <button class="enter__button _half" type="submit" [disabled]="form.invalid">
+                    Войти
+                </button>
+                <button class="enter__button _half _grey" type="button" [routerLink]="['../registration']">
+                    Зарегистрироваться
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

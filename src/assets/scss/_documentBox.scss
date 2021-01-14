@@ -1,0 +1,48 @@
+.documentBox {
+    width: 100%;
+    height: 100%;
+    $paddingTop: 2rem;
+    $paddingLeft: 2.5rem;
+    padding: $paddingTop $paddingLeft;
+    border-radius: .5rem;
+    background: #fff;
+    box-shadow: 0 0 .5rem rgba(0, 0, 0, .1);
+    position: relative;
+    @extend .row;
+    @include media(0, 500px) {
+        padding: 2.5rem;
+        flex-wrap: wrap;
+    }
+    &__icon {
+        width: 5rem;
+        margin-right: 2rem;
+    }
+    &__fields {
+        width: 50%;
+        @include media(0, 500px) {
+            width: calc(100% - 7rem);
+        }
+        &Title {
+            font-size: 1.2rem;
+            font-family: 'Regular';
+            text-transform: uppercase;
+        }
+        &Items {
+            width: 100%;
+            @extend .row;
+        }
+        &Item {
+            width: 48%;
+        }
+        &Item+&Item {
+            margin-left: 4%;
+        }
+    }
+    &__button {
+        margin: auto 0 0 auto;
+        @include media(0, 500px) {
+            width: 100%;
+            margin: 2rem 0 0 0;
+        }
+    }
+}

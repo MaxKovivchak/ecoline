@@ -1,0 +1,111 @@
+﻿.reset {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    text-decoration: none;
+    outline: none;
+    line-height: 1;
+    border: none;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    letter-spacing: unset;
+    box-sizing: border-box;
+    font-weight: 400;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+@mixin bg($url, $size, $pos) {
+    background: url($url)no-repeat;
+    background-size: $size;
+    background-position: $pos;
+}
+
+@mixin mediaMin($w) {
+    @media screen and (min-width: $w) {
+        @content;
+    }
+}
+
+@mixin media($w1, $w2) {
+    @media screen and (min-width: $w1) and (max-width: $w2) {
+        @content;
+    }
+}
+
+html {
+    @extend .reset;
+    font-size: calc(100vw / 179);
+    @include mediaMin(1920px) {
+        font-size: 10.72px;
+    }
+    @include media(0, 500px) {
+        font-size: calc(100vw / 52);
+    }
+}
+
+.MEDIA {
+    &._mobile {
+        @include mediaMin(501px) {
+            display: none;
+        }
+    }
+    &._desktop {
+        @include media(0, 500px) {
+            display: none;
+        }
+    }
+}
+
+br {
+    @extend .MEDIA;
+}
+
+h1,
+h2 {
+    @extend .reset;
+    font-size: 1rem;
+    line-height: 1;
+    color: inherit;
+    font-family: inherit;
+}
+
+button {
+    @extend .reset;
+    font-size: 1rem;
+}
+
+.section {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.inner {
+    position: relative;
+    width: $widthContent;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    @include media(0, 500px) {
+        width: 95vw;
+    }
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}

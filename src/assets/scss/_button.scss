@@ -1,0 +1,38 @@
+.button {
+    width: 100%;
+    height: 100%;
+    padding: 1.3rem 3.5rem 1.3rem 3.5rem;
+    border-radius: .5rem;
+    background: $colorMain;
+    @extend .row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    font-size: 1.5rem;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: 'Regular';
+    border: 1px solid transparent;
+    @include media(0, 500px) {
+        font-size: 1.9rem;
+        padding: 1.8rem 4rem;
+    }
+    &._green {
+        background: $colorGreen;
+        color: #fff;
+    }
+    &._white {
+        background: #fff;
+        color: $colorDark;
+    }
+    &._grey {
+        background: none;
+        border-color: #6C798B;
+        color: #6C798B;
+    }
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+}

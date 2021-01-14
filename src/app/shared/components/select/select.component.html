@@ -1,0 +1,19 @@
+<div class="select"
+     [ngClass]="{'_active': isOpen}"
+     appOutsideClick
+     (clickedOutside)="isOpen = false">
+    <div class="select__view"
+         (click)="isOpen = !isOpen">
+        <p class="select__choice">
+            {{selected}}
+        </p>
+    </div>
+    <ul class="select__drop">
+        <li *ngFor="let option of options"
+            class="select__dropItem"
+            [class.select__dropItem--disabled]="canSelect(option)"
+            (click)="selectOption(option)">
+            {{option.title}}
+        </li>
+    </ul>
+</div>
